@@ -869,16 +869,16 @@ footer {
     .side-by-side-renders img {
         position: absolute;
         height: 50vh;
-        max-height: 400px;
-        width: 90%;
-        max-width: 400px;
-        object-fit: contain;
-        left: 0;
-        right: 0;
-        margin: auto;
+        max-height: none;
+        width: 100vw;
+        max-width: none;
+        object-fit: cover;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
         background-color: var(--color-bg);
-        border-radius: 1rem;
-        padding: 1rem;
+        border-radius: 0;
+        padding: 0;
         box-sizing: border-box;
     }
 
@@ -898,11 +898,11 @@ footer {
     /* Override center-large to match side images on mobile */
     .side-by-side-renders img.center-large {
         height: 50vh;
-        max-height: 400px;
-        width: 90%;
-        max-width: 400px;
+        max-height: none;
+        width: 100vw;
+        max-width: none;
         flex: 1;
-        transform: translateY(0);
+        transform: translateX(-50%);
     }
 
     .product-content {

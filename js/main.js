@@ -158,9 +158,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     contentEl.style.transform = `translateY(${(1 - contentP) * 30}%)`;
                 }
             } else {
-                // Desktop side-by-side sequence — spread wide for slow reveal
-                const sideP = interp(progress, 0.15, 0.40);
-                const contentP = interp(progress, 0.50, 0.75);
+                // Desktop side-by-side sequence — original snappy pacing
+                const sideP = interp(progress, 0.1, 0.5);
+                const contentP = interp(progress, 0.6, 0.9);
 
                 if (leftEl) {
                     leftEl.style.opacity = sideP;

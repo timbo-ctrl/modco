@@ -458,33 +458,20 @@ nav.scrolled {
     font-weight: 500;
 }
 
-.scroll-icon {
-    width: 24px;
-    height: 36px;
-    border: 2px solid var(--color-text-muted);
-    border-radius: 12px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    padding-top: 6px;
+.scroll-arrow {
+    font-size: 1.5rem;
+    color: var(--color-text-muted);
+    animation: arrowBounce 2s infinite ease-in-out;
 }
 
-.scroll-dot {
-    width: 4px;
-    height: 8px;
-    background-color: var(--color-text-muted);
-    border-radius: 2px;
-    animation: scrollBounce 2s infinite ease-in-out;
-}
-
-@keyframes scrollBounce {
+@keyframes arrowBounce {
     0%, 100% {
         transform: translateY(0);
         opacity: 1;
     }
     50% {
-        transform: translateY(12px);
-        opacity: 0.3;
+        transform: translateY(8px);
+        opacity: 0.4;
     }
 }
 

@@ -502,7 +502,7 @@ nav.scrolled {
 
 /* Scroll Jacking Product Sequence */
 .scroll-jack-track {
-    height: 200vh;
+    height: 400vh;
     width: 100vw;
     margin: 0 calc(-50vw + 50%);
     position: relative;
@@ -545,6 +545,7 @@ nav.scrolled {
     height: 60vh;
     max-height: 500px;
     object-fit: contain;
+    transition: opacity 0.15s ease-out, transform 0.15s ease-out;
 }
 
 .side-by-side-renders img.center-large {
@@ -835,7 +836,7 @@ footer {
     }
 
     .scroll-jack-track {
-        height: 160vh;
+        height: 350vh;
     }
 
     .scroll-jack-sticky {

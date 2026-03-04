@@ -856,8 +856,9 @@ footer {
     }
 
     .scroll-jack-sticky {
-        height: 80vh;
-        align-items: flex-start;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
     }
 
     .side-by-side-renders {
@@ -872,15 +873,13 @@ footer {
     .side-by-side-renders img {
         position: absolute;
         top: 50%;
-        margin-top: -25vh;
         left: 0;
         height: 50vh;
         width: 100%;
         max-height: none;
         max-width: none;
         object-fit: cover;
-        margin-left: 0;
-        margin-right: 0;
+        margin: 0;
         background-color: var(--color-bg);
         border-radius: 0;
         padding: 0;
@@ -894,7 +893,7 @@ footer {
 
     .side-by-side-renders img:nth-child(2) {
         z-index: 1;
-        transform: translateY(0) !important;
+        transform: translateY(-50%) !important;
     }
 
     .side-by-side-renders img:nth-child(1) {
@@ -912,7 +911,7 @@ footer {
         width: 100%;
         max-width: none;
         flex: 1;
-        transform: translateY(0);
+        transform: translateY(-50%);
     }
 
     .mobile-break {

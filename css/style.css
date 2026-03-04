@@ -868,17 +868,17 @@ footer {
 
     .side-by-side-renders img {
         position: absolute;
+        top: 0;
+        left: 0;
         height: 50vh;
+        width: 100%;
         max-height: none;
-        width: 100vw;
         max-width: none;
-        object-fit: cover;
-        left: 50%;
-        transform: translateX(-50%);
+        object-fit: contain;
         margin: 0;
         background-color: var(--color-bg);
         border-radius: 0;
-        padding: 0;
+        padding: 2rem;
         box-sizing: border-box;
     }
 
@@ -899,10 +899,10 @@ footer {
     .side-by-side-renders img.center-large {
         height: 50vh;
         max-height: none;
-        width: 100vw;
+        width: 100%;
         max-width: none;
         flex: 1;
-        transform: translateX(-50%);
+        transform: translateY(0);
     }
 
     .product-content {

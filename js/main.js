@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 splashScreen.classList.add('fade-out');
 
-                // Remove from DOM after fade completes (1.2s in CSS)
+                // Remove from DOM after fade completes
                 setTimeout(() => {
                     splashScreen.remove();
                 }, 1000);
@@ -79,9 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fadeElements.forEach(el => fadeObserver.observe(el));
 
 
-
-
-    // --- Scroll Trigger sequence for Products ---
+    // --- Scroll Trigger sequence for Products (lerp-based for buttery smoothness) ---
     function setupScrollJack(trackId, leftId, rightId, contentId) {
         const track = document.getElementById(trackId);
         const leftEl = leftId ? document.getElementById(leftId) : null;
@@ -91,15 +89,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!track) return;
 
-        // Clean inline styles if crossing the breakpoint
-        window.addEventListener('resize', () => {
-            if (leftEl) leftEl.style.cssText = '';
-            if (rightEl) rightEl.style.cssText = '';
-            if (centerEl) centerEl.style.cssText = '';
-            if (contentEl) contentEl.style.cssText = '';
-        });
+        // Lerp smoothing (0.08 = buttery smooth)
+        const LERP = 0.08;
+        let currentProgress = 0;
 
-        // Initial state for desktop (assuming >1024px)
+        // Initial state for desktop
         if (window.innerWidth > 1024) {
             if (leftEl) {
                 leftEl.style.opacity = 0;
@@ -116,51 +110,50 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (contentEl) contentEl.style.opacity = 0;
 
-        window.addEventListener('scroll', () => {
+        const interp = (p, start, end) => {
+            if (p <= start) return 0;
+            if (p >= end) return 1;
+            return (p - start) / (end - start);
+        };
+
+        function animate() {
             const rect = track.getBoundingClientRect();
             const scrollDistance = -rect.top;
             const totalScroll = rect.height - window.innerHeight;
 
-            let progress = totalScroll > 0 ? scrollDistance / totalScroll : 0;
-            if (progress < 0) progress = 0;
-            if (progress > 1) progress = 1;
+            let targetProgress = totalScroll > 0 ? scrollDistance / totalScroll : 0;
+            if (targetProgress < 0) targetProgress = 0;
+            if (targetProgress > 1) targetProgress = 1;
 
-            const interp = (p, start, end) => {
-                if (p <= start) return 0;
-                if (p >= end) return 1;
-                return (p - start) / (end - start);
-            };
+            // Lerp toward target for buttery smoothness
+            currentProgress += (targetProgress - currentProgress) * LERP;
 
             const isMobile = window.innerWidth <= 1024;
 
             if (isMobile) {
-                // Mobile stacked cover sequence — spread wide for slow reveal
-                const leftRevealP = interp(progress, 0.05, 0.30);
-                const rightRevealP = interp(progress, 0.35, 0.60);
-                const contentP = interp(progress, 0.65, 0.85);
+                // Mobile stacked cover sequence
+                const leftRevealP = interp(currentProgress, 0.05, 0.30);
+                const rightRevealP = interp(currentProgress, 0.35, 0.60);
+                const contentP = interp(currentProgress, 0.65, 0.85);
 
-                if (centerEl) {
-                    centerEl.style.opacity = 1;
-                }
+                if (centerEl) centerEl.style.opacity = 1;
 
                 if (leftEl) {
-                    leftEl.style.opacity = leftRevealP > 0 ? 1 : 0;
+                    leftEl.style.opacity = leftRevealP > 0.01 ? 1 : 0;
                     leftEl.style.transform = `translateY(${(1 - leftRevealP) * 100}%)`;
                 }
-
                 if (rightEl) {
-                    rightEl.style.opacity = rightRevealP > 0 ? 1 : 0;
+                    rightEl.style.opacity = rightRevealP > 0.01 ? 1 : 0;
                     rightEl.style.transform = `translateY(${(1 - rightRevealP) * 100}%)`;
                 }
-
                 if (contentEl) {
                     contentEl.style.opacity = contentP;
                     contentEl.style.transform = `translateY(${(1 - contentP) * 30}%)`;
                 }
             } else {
-                // Desktop side-by-side sequence — original snappy pacing
-                const sideP = interp(progress, 0.1, 0.5);
-                const contentP = interp(progress, 0.6, 0.9);
+                // Desktop side-by-side sequence
+                const sideP = interp(currentProgress, 0.1, 0.5);
+                const contentP = interp(currentProgress, 0.6, 0.9);
 
                 if (leftEl) {
                     leftEl.style.opacity = sideP;
@@ -179,7 +172,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     contentEl.style.transform = `translateY(${(1 - contentP) * 30}px)`;
                 }
             }
-        });
+
+            requestAnimationFrame(animate);
+        }
+
+        requestAnimationFrame(animate);
     }
 
     // Initialize the scroll jack effect on the 3 product sections
@@ -218,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 images[currentIndex].classList.remove('active');
                 currentIndex = (currentIndex + 1) % images.length;
                 images[currentIndex].classList.add('active');
-            }, 2500); // Change image every 2.5 seconds
+            }, 2500);
         }
     });
 

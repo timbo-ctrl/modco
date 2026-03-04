@@ -545,7 +545,6 @@ nav.scrolled {
     height: 60vh;
     max-height: 500px;
     object-fit: contain;
-    transition: opacity 0.15s ease-out, transform 0.15s ease-out;
 }
 
 .side-by-side-renders img.center-large {
@@ -854,7 +853,7 @@ footer {
     }
 
     .scroll-jack-track {
-        height: 500vh;
+        height: 200vh;
     }
 
     .scroll-jack-sticky {

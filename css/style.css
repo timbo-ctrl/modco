@@ -862,8 +862,11 @@ footer {
 
     .side-by-side-renders {
         position: relative;
-        padding-top: 5vh;
+        height: 100%;
+        width: 100%;
+        padding-top: 0;
         gap: 0;
+        overflow: hidden;
     }
 
     .side-by-side-renders img {

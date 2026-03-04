@@ -883,30 +883,26 @@ footer {
 
     .side-by-side-renders img {
         position: absolute;
-        height: 40vh;
-        max-height: 250px;
+        height: 45vh;
+        max-height: 350px;
         width: 100%;
-        max-width: 250px;
+        max-width: 350px;
         object-fit: contain;
+        left: 0;
+        right: 0;
+        margin: auto;
     }
 
     .side-by-side-renders img:first-child {
-        left: -15%;
-        z-index: 1;
+        z-index: 2;
     }
 
     .side-by-side-renders img:last-child {
-        right: -15%;
-        z-index: 1;
+        z-index: 3;
     }
 
     .side-by-side-renders img.center-large {
-        position: relative;
-        height: 45vh;
-        width: 100%;
-        max-width: 350px;
-        max-height: 350px;
-        z-index: 3;
+        z-index: 1;
         transform: translateY(0);
     }
 

@@ -82,26 +82,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- Scroll Trigger sequence for Products ---
-    function setupScrollJack(trackId, leftId, rightId, contentId) {
+    function setupScrollJack(trackId, leftId, centerId, rightId, contentId) {
         const track = document.getElementById(trackId);
         const leftEl = leftId ? document.getElementById(leftId) : null;
+        const centerEl = centerId ? document.getElementById(centerId) : null;
         const rightEl = rightId ? document.getElementById(rightId) : null;
         const contentEl = document.getElementById(contentId);
 
         if (!track) return;
 
-        // Initial state - side images take no space until animated
-        if (leftEl) {
-            leftEl.style.opacity = 0;
-            leftEl.style.flex = '0';
-            leftEl.style.maxWidth = '0';
-            leftEl.style.overflow = 'hidden';
-        }
-        if (rightEl) {
-            rightEl.style.opacity = 0;
-            rightEl.style.flex = '0';
-            rightEl.style.maxWidth = '0';
-            rightEl.style.overflow = 'hidden';
+        // Clean inline styles if crossing the breakpoint
+        window.addEventListener('resize', () => {
+            if (leftEl) leftEl.style.cssText = '';
+            if (rightEl) rightEl.style.cssText = '';
+            if (centerEl) centerEl.style.cssText = '';
+            if (contentEl) contentEl.style.cssText = '';
+        });
+
+        // Initial state for desktop (assuming >1024px)
+        if (window.innerWidth > 1024) {
+            if (leftEl) {
+                leftEl.style.opacity = 0;
+                leftEl.style.flex = '0';
+                leftEl.style.maxWidth = '0';
+                leftEl.style.overflow = 'hidden';
+            }
+            if (rightEl) {
+                rightEl.style.opacity = 0;
+                rightEl.style.flex = '0';
+                rightEl.style.maxWidth = '0';
+                rightEl.style.overflow = 'hidden';
+            }
         }
         if (contentEl) contentEl.style.opacity = 0;
 
@@ -120,32 +131,67 @@ document.addEventListener('DOMContentLoaded', () => {
                 return (p - start) / (end - start);
             };
 
-            const sideP = interp(progress, 0.1, 0.5);
-            const contentP = interp(progress, 0.6, 0.9);
+            const isMobile = window.innerWidth <= 1024;
 
-            if (leftEl) {
-                leftEl.style.opacity = sideP;
-                leftEl.style.flex = sideP;
-                leftEl.style.maxWidth = window.innerWidth <= 768 ? (sideP * 100) + '%' : (sideP * 33) + '%';
-                leftEl.style.transform = `translateX(${(1 - sideP) * -50}px)`;
-            }
-            if (rightEl) {
-                rightEl.style.opacity = sideP;
-                rightEl.style.flex = sideP;
-                rightEl.style.maxWidth = window.innerWidth <= 768 ? (sideP * 100) + '%' : (sideP * 33) + '%';
-                rightEl.style.transform = `translateX(${(1 - sideP) * 50}px)`;
-            }
-            if (contentEl) {
-                contentEl.style.opacity = contentP;
-                contentEl.style.transform = `translateY(${(1 - contentP) * 30}px)`;
+            if (isMobile) {
+                // Mobile stacked cover sequence
+                const leftRevealP = interp(progress, 0.1, 0.4);
+                const rightRevealP = interp(progress, 0.4, 0.7);
+                const contentP = interp(progress, 0.7, 1.0);
+
+                if (centerEl) {
+                    centerEl.style.opacity = 1;
+                    centerEl.style.transform = 'translateY(0)';
+                }
+
+                if (leftEl) {
+                    leftEl.style.opacity = leftRevealP;
+                    leftEl.style.transform = `translateY(${(1 - leftRevealP) * 100}px)`;
+                }
+
+                if (rightEl) {
+                    rightEl.style.opacity = rightRevealP;
+                    rightEl.style.transform = `translateY(${(1 - rightRevealP) * 100}px)`;
+                }
+
+                if (contentEl) {
+                    contentEl.style.opacity = contentP;
+                    contentEl.style.transform = `translateY(${(1 - contentP) * 30}px)`;
+                }
+            } else {
+                // Desktop side-by-side sequence
+                const sideP = interp(progress, 0.1, 0.5);
+                const contentP = interp(progress, 0.6, 0.9);
+
+                if (centerEl) {
+                    centerEl.style.opacity = 1;
+                    centerEl.style.transform = 'translateY(-20px)'; // Restore center pop
+                }
+
+                if (leftEl) {
+                    leftEl.style.opacity = sideP;
+                    leftEl.style.flex = sideP;
+                    leftEl.style.maxWidth = (sideP * 33) + '%';
+                    leftEl.style.transform = `translateX(${(1 - sideP) * -50}px)`;
+                }
+                if (rightEl) {
+                    rightEl.style.opacity = sideP;
+                    rightEl.style.flex = sideP;
+                    rightEl.style.maxWidth = (sideP * 33) + '%';
+                    rightEl.style.transform = `translateX(${(1 - sideP) * 50}px)`;
+                }
+                if (contentEl) {
+                    contentEl.style.opacity = contentP;
+                    contentEl.style.transform = `translateY(${(1 - contentP) * 30}px)`;
+                }
             }
         });
     }
 
     // Initialize the scroll jack effect on the 3 product sections
-    setupScrollJack('genius-track', 'g-left', 'g-right', 'g-content');
-    setupScrollJack('switch-track', 's-left', 's-right', 's-content');
-    setupScrollJack('quattro-track', 'q-left', 'q-right', 'q-content');
+    setupScrollJack('genius-track', 'g-left', 'g-center', 'g-right', 'g-content');
+    setupScrollJack('switch-track', 's-left', 's-center', 's-right', 's-content');
+    setupScrollJack('quattro-track', 'q-left', 'q-center', 'q-right', 'q-content');
 
     // --- Contact Form Handling ---
     const form = document.getElementById('contactForm');

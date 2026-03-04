@@ -82,12 +82,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- Scroll Trigger sequence for Products ---
-    function setupScrollJack(trackId, leftId, centerId, rightId, contentId) {
+    function setupScrollJack(trackId, leftId, rightId, contentId) {
         const track = document.getElementById(trackId);
         const leftEl = leftId ? document.getElementById(leftId) : null;
-        const centerEl = centerId ? document.getElementById(centerId) : null;
         const rightEl = rightId ? document.getElementById(rightId) : null;
         const contentEl = document.getElementById(contentId);
+        const centerEl = track ? track.querySelector('.center-large') : null;
 
         if (!track) return;
 
@@ -141,32 +141,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (centerEl) {
                     centerEl.style.opacity = 1;
-                    centerEl.style.transform = 'translateY(0)';
                 }
 
                 if (leftEl) {
-                    leftEl.style.opacity = leftRevealP;
-                    leftEl.style.transform = `translateY(${(1 - leftRevealP) * 100}px)`;
+                    leftEl.style.opacity = leftRevealP > 0 ? 1 : 0;
+                    leftEl.style.transform = `translateY(${(1 - leftRevealP) * 100}%)`;
                 }
 
                 if (rightEl) {
-                    rightEl.style.opacity = rightRevealP;
-                    rightEl.style.transform = `translateY(${(1 - rightRevealP) * 100}px)`;
+                    rightEl.style.opacity = rightRevealP > 0 ? 1 : 0;
+                    rightEl.style.transform = `translateY(${(1 - rightRevealP) * 100}%)`;
                 }
 
                 if (contentEl) {
                     contentEl.style.opacity = contentP;
-                    contentEl.style.transform = `translateY(${(1 - contentP) * 30}px)`;
+                    contentEl.style.transform = `translateY(${(1 - contentP) * 30}%)`;
                 }
             } else {
                 // Desktop side-by-side sequence
                 const sideP = interp(progress, 0.1, 0.5);
                 const contentP = interp(progress, 0.6, 0.9);
-
-                if (centerEl) {
-                    centerEl.style.opacity = 1;
-                    centerEl.style.transform = 'translateY(-20px)'; // Restore center pop
-                }
 
                 if (leftEl) {
                     leftEl.style.opacity = sideP;
@@ -189,9 +183,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Initialize the scroll jack effect on the 3 product sections
-    setupScrollJack('genius-track', 'g-left', 'g-center', 'g-right', 'g-content');
-    setupScrollJack('switch-track', 's-left', 's-center', 's-right', 's-content');
-    setupScrollJack('quattro-track', 'q-left', 'q-center', 'q-right', 'q-content');
+    setupScrollJack('genius-track', 'g-left', 'g-right', 'g-content');
+    setupScrollJack('switch-track', 's-left', 's-right', 's-content');
+    setupScrollJack('quattro-track', 'q-left', 'q-right', 'q-content');
 
     // --- Contact Form Handling ---
     const form = document.getElementById('contactForm');

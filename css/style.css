@@ -868,7 +868,8 @@ footer {
 
     .side-by-side-renders img {
         position: absolute;
-        top: 15vh;
+        top: 50%;
+        margin-top: -25vh;
         left: 0;
         height: 50vh;
         width: 100%;

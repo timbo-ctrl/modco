@@ -125,11 +125,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (leftEl) {
                 leftEl.style.opacity = leftRevealP > 0.01 ? 1 : 0;
-                leftEl.style.transform = `translateY(calc(-50% + ${(1 - leftRevealP) * 100}%))`;
+                leftEl.style.transform = `translateY(${(1 - leftRevealP) * 100}%)`;
             }
             if (rightEl) {
                 rightEl.style.opacity = rightRevealP > 0.01 ? 1 : 0;
-                rightEl.style.transform = `translateY(calc(-50% + ${(1 - rightRevealP) * 100}%))`;
+                rightEl.style.transform = `translateY(${(1 - rightRevealP) * 100}%)`;
             }
             if (contentEl) {
                 contentEl.style.opacity = contentP;

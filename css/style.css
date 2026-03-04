@@ -908,17 +908,17 @@ footer {
 
     .side-by-side-renders img {
         position: absolute;
-        top: 50%;
+        top: 0;
         left: 0;
-        height: 50vh;
+        height: 100vh;
         width: 100%;
         max-height: none;
         max-width: none;
-        object-fit: cover;
+        object-fit: contain;
         margin: 0;
         background-color: var(--color-bg);
         border-radius: 0;
-        padding: 0;
+        padding: 10vh 2rem 35vh 2rem;
         box-sizing: border-box;
         will-change: transform, opacity;
         transform: translateZ(0);
@@ -929,7 +929,7 @@ footer {
 
     .side-by-side-renders img:nth-child(2) {
         z-index: 1;
-        transform: translateY(-50%) !important;
+        transform: translateY(0) !important;
     }
 
     .side-by-side-renders img:nth-child(1) {
@@ -942,12 +942,12 @@ footer {
 
     /* Override center-large to match side images on mobile */
     .side-by-side-renders img.center-large {
-        height: 50vh;
+        height: 100vh;
         max-height: none;
         width: 100%;
         max-width: none;
         flex: 1;
-        transform: translateY(-50%);
+        transform: translateY(0);
     }
 
     .mobile-break {
@@ -974,6 +974,12 @@ footer {
 @media (max-width: 768px) {
     :root {
         --spacing-section: 10vh;
+    }
+
+    #genius-section,
+    #switch-section,
+    #quattro-section {
+        padding: 0;
     }
 
     .model-steps {

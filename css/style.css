@@ -919,10 +919,15 @@ footer {
         display: block;
     }
 
+    .scroll-end-content {
+        align-items: center;
+        padding-bottom: 0;
+    }
+
     .product-content {
         width: 95%;
         padding: 2rem 1rem;
-        margin-top: -15vh;
+        margin-top: 0;
     }
 
     .contact-grid {

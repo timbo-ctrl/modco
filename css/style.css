@@ -8,8 +8,8 @@
     --color-text-muted: #86868B;
     --color-surface: #F5F5F7;
     --color-border: #E5E5EA;
-    --color-accent-teal: #0071E3;
-    /* Changed to Apple blue */
+    --color-accent-teal: #0ABAB5;
+    /* Changed to Tiffany blue */
     --color-accent-orange: #FF9500;
 
     --font-primary: 'General Sans', sans-serif;
@@ -428,63 +428,6 @@ nav.scrolled {
 .hero-content h1 {
     color: var(--color-text-main);
     text-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8);
-}
-
-.scroll-indicator {
-    position: absolute;
-    bottom: 5vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    opacity: 0.8;
-    color: var(--color-text-main);
-}
-
-.scroll-text {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    opacity: 0.6;
-}
-
-.scroll-line {
-    width: 1px;
-    height: 80px;
-    background: rgba(255, 255, 255, 0.15);
-    position: relative;
-    overflow: hidden;
-}
-
-.scroll-line::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    background: var(--color-text-main);
-    animation: scrollDrain 2.5s cubic-bezier(0.77, 0, 0.175, 1) infinite;
-}
-
-@keyframes scrollDrain {
-    0% {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-
-    20% {
-        opacity: 1;
-    }
-
-    80% {
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateY(200%);
-        opacity: 0;
-    }
 }
 
 /* Platform Section */

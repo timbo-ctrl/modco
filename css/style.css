@@ -502,7 +502,7 @@ nav.scrolled {
 
 /* Scroll Jacking Product Sequence */
 .scroll-jack-track {
-    height: 200vh;
+    height: 150vh;
     width: 100vw;
     margin: 0 calc(-50vw + 50%);
     position: relative;

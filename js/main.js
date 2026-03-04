@@ -10,16 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const splashLogo = splashScreen.querySelector('.splash-logo');
         const loaderLine = splashScreen.querySelector('.loader-line');
 
-        // Phase 1: After load animation, dissolve the logo and loader
         setTimeout(() => {
             if (splashLogo) splashLogo.classList.add('logo-exit');
             if (loaderLine) loaderLine.classList.add('logo-exit');
 
-            // Phase 2: After logo dissolves, fade the entire splash screen
             setTimeout(() => {
                 splashScreen.classList.add('fade-out');
-
-                // Remove from DOM after fade completes
                 setTimeout(() => {
                     splashScreen.remove();
                 }, 1000);
@@ -48,7 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
             navLinks.classList.toggle('active');
         });
 
-        // Close menu when a link is clicked
         const links = navLinks.querySelectorAll('a');
         links.forEach(link => {
             link.addEventListener('click', () => {
@@ -61,12 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Intersection Observers for Fade-Ins ---
     const fadeElements = document.querySelectorAll('.fade-in');
 
-    const fadeObserverOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.15
-    };
-
     const fadeObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -74,12 +63,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 observer.unobserve(entry.target);
             }
         });
-    }, fadeObserverOptions);
+    }, { root: null, rootMargin: '0px', threshold: 0.15 });
 
     fadeElements.forEach(el => fadeObserver.observe(el));
 
 
-    // --- Scroll Trigger sequence for Products (lerp-based for buttery smoothness) ---
+    // --- Scroll Trigger sequence for Products ---
     function setupScrollJack(trackId, leftId, rightId, contentId) {
         const track = document.getElementById(trackId);
         const leftEl = leftId ? document.getElementById(leftId) : null;
@@ -89,12 +78,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!track) return;
 
-        // Lerp smoothing (0.08 = buttery smooth)
+        const isMobile = window.innerWidth <= 1024;
+
+        // Desktop: lerp for buttery mouse-wheel smoothness
+        // Mobile: direct mapping — touch scrolling is already smooth, lerp fights it
         const LERP = 0.08;
         let currentProgress = 0;
 
-        // Initial state for desktop
-        if (window.innerWidth > 1024) {
+        // Initial state for desktop side images
+        if (!isMobile) {
             if (leftEl) {
                 leftEl.style.opacity = 0;
                 leftEl.style.flex = '0';
@@ -116,67 +108,72 @@ document.addEventListener('DOMContentLoaded', () => {
             return (p - start) / (end - start);
         };
 
-        function animate() {
+        function getProgress() {
             const rect = track.getBoundingClientRect();
             const scrollDistance = -rect.top;
             const totalScroll = rect.height - window.innerHeight;
-
-            let targetProgress = totalScroll > 0 ? scrollDistance / totalScroll : 0;
-            if (targetProgress < 0) targetProgress = 0;
-            if (targetProgress > 1) targetProgress = 1;
-
-            // Lerp toward target for buttery smoothness
-            currentProgress += (targetProgress - currentProgress) * LERP;
-
-            const isMobile = window.innerWidth <= 1024;
-
-            if (isMobile) {
-                // Mobile stacked cover sequence
-                const leftRevealP = interp(currentProgress, 0.05, 0.30);
-                const rightRevealP = interp(currentProgress, 0.35, 0.60);
-                const contentP = interp(currentProgress, 0.65, 0.85);
-
-                if (centerEl) centerEl.style.opacity = 1;
-
-                if (leftEl) {
-                    leftEl.style.opacity = leftRevealP > 0.01 ? 1 : 0;
-                    leftEl.style.transform = `translateY(${(1 - leftRevealP) * 100}%)`;
-                }
-                if (rightEl) {
-                    rightEl.style.opacity = rightRevealP > 0.01 ? 1 : 0;
-                    rightEl.style.transform = `translateY(${(1 - rightRevealP) * 100}%)`;
-                }
-                if (contentEl) {
-                    contentEl.style.opacity = contentP;
-                    contentEl.style.transform = `translateY(${(1 - contentP) * 30}%)`;
-                }
-            } else {
-                // Desktop side-by-side sequence
-                const sideP = interp(currentProgress, 0.1, 0.5);
-                const contentP = interp(currentProgress, 0.6, 0.9);
-
-                if (leftEl) {
-                    leftEl.style.opacity = sideP;
-                    leftEl.style.flex = sideP;
-                    leftEl.style.maxWidth = (sideP * 33) + '%';
-                    leftEl.style.transform = `translateX(${(1 - sideP) * -50}px)`;
-                }
-                if (rightEl) {
-                    rightEl.style.opacity = sideP;
-                    rightEl.style.flex = sideP;
-                    rightEl.style.maxWidth = (sideP * 33) + '%';
-                    rightEl.style.transform = `translateX(${(1 - sideP) * 50}px)`;
-                }
-                if (contentEl) {
-                    contentEl.style.opacity = contentP;
-                    contentEl.style.transform = `translateY(${(1 - contentP) * 30}px)`;
-                }
-            }
-
-            requestAnimationFrame(animate);
+            let p = totalScroll > 0 ? scrollDistance / totalScroll : 0;
+            return Math.max(0, Math.min(1, p));
         }
 
-        requestAnimationFrame(animate);
+        function applyMobile(progress) {
+            const leftRevealP = interp(progress, 0.05, 0.30);
+            const rightRevealP = interp(progress, 0.35, 0.60);
+            const contentP = interp(progress, 0.65, 0.85);
+
+            if (centerEl) centerEl.style.opacity = 1;
+
+            if (leftEl) {
+                leftEl.style.opacity = leftRevealP > 0.01 ? 1 : 0;
+                leftEl.style.transform = `translateY(${(1 - leftRevealP) * 100}%)`;
+            }
+            if (rightEl) {
+                rightEl.style.opacity = rightRevealP > 0.01 ? 1 : 0;
+                rightEl.style.transform = `translateY(${(1 - rightRevealP) * 100}%)`;
+            }
+            if (contentEl) {
+                contentEl.style.opacity = contentP;
+                contentEl.style.transform = `translateY(${(1 - contentP) * 30}%)`;
+            }
+        }
+
+        function applyDesktop(progress) {
+            const sideP = interp(progress, 0.1, 0.5);
+            const contentP = interp(progress, 0.6, 0.9);
+
+            if (leftEl) {
+                leftEl.style.opacity = sideP;
+                leftEl.style.flex = sideP;
+                leftEl.style.maxWidth = (sideP * 33) + '%';
+                leftEl.style.transform = `translateX(${(1 - sideP) * -50}px)`;
+            }
+            if (rightEl) {
+                rightEl.style.opacity = sideP;
+                rightEl.style.flex = sideP;
+                rightEl.style.maxWidth = (sideP * 33) + '%';
+                rightEl.style.transform = `translateX(${(1 - sideP) * 50}px)`;
+            }
+            if (contentEl) {
+                contentEl.style.opacity = contentP;
+                contentEl.style.transform = `translateY(${(1 - contentP) * 30}px)`;
+            }
+        }
+
+        if (isMobile) {
+            // Mobile: direct scroll mapping — no lerp, no fighting touch physics
+            window.addEventListener('scroll', () => {
+                applyMobile(getProgress());
+            }, { passive: true });
+        } else {
+            // Desktop: lerp animation loop for buttery mouse-wheel smoothness
+            function animate() {
+                const target = getProgress();
+                currentProgress += (target - currentProgress) * LERP;
+                applyDesktop(currentProgress);
+                requestAnimationFrame(animate);
+            }
+            requestAnimationFrame(animate);
+        }
     }
 
     // Initialize the scroll jack effect on the 3 product sections
@@ -191,8 +188,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (form) {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-            // Client-side validation is handled by HTML5 attributes
-            // Fake submit state
             const btn = form.querySelector('.btn-submit');
             btn.textContent = 'Sending...';
             btn.disabled = true;

@@ -432,21 +432,57 @@ nav.scrolled {
 
 /* Platform Section */
 .section-platform {
-    min-height: 80vh;
-    display: flex;
-    align-items: center;
+    padding: 15vh 0;
+    min-height: auto;
 }
 
-.section-platform h2 {
+.container-platform {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    text-align: left;
+}
+
+@media (min-width: 768px) {
+    .container-platform {
+        flex-direction: row;
+        align-items: center;
+        gap: 5rem;
+    }
+
+    .platform-header,
+    .platform-features {
+        flex: 1;
+    }
+}
+
+.platform-header h2 {
     color: var(--color-text-main);
-    max-width: 20ch;
-    margin: 0 auto 3rem;
+    margin: 0;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    max-width: 15ch;
 }
 
 .platform-features p {
-    font-size: clamp(1.25rem, 2vw, 1.5rem);
-    margin: 0 auto 1rem;
+    font-size: clamp(1.1rem, 1.5vw, 1.25rem);
+    margin: 0 0 1.5rem 0;
     color: var(--color-text-muted);
+    line-height: 1.5;
+    position: relative;
+    padding-left: 1.5rem;
+    font-weight: 500;
+}
+
+.platform-features p::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--color-text-main);
+}
+
+.platform-features p:last-child {
+    margin-bottom: 0;
 }
 
 /* Product Showcases */

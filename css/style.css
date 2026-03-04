@@ -846,7 +846,6 @@ footer {
 
     .product-layout.reverse {
         direction: ltr;
-        /* Reset direction */
     }
 
     .product-sticky-visual {
@@ -854,10 +853,41 @@ footer {
         margin-bottom: 0;
     }
 
+    /* Reduce massive vertical whitespace on mobile */
+    .section-platform {
+        min-height: 45vh;
+        align-items: flex-start;
+        padding-top: 15vh;
+    }
+
+    .scroll-jack-track {
+        height: 160vh;
+    }
+
+    .scroll-jack-sticky {
+        height: 80vh;
+        align-items: flex-start;
+    }
+
+    .side-by-side-renders {
+        align-items: flex-start;
+        padding-top: 5vh;
+    }
+
+    .side-by-side-renders img.center-large {
+        height: 55vh;
+        transform: translateY(0);
+    }
+
+    .scroll-end-content {
+        height: 80vh;
+        padding-bottom: 5vh;
+    }
+
     .product-content {
         width: 95%;
         padding: 2rem 1rem;
-        margin-top: -15vh;
+        margin-top: 0;
     }
 
     .contact-grid {

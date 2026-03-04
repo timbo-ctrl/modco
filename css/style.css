@@ -915,6 +915,10 @@ footer {
         transform: translateY(0);
     }
 
+    .mobile-break {
+        display: block;
+    }
+
     .product-content {
         width: 95%;
         padding: 2rem 1rem;

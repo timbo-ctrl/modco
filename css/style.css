@@ -876,6 +876,10 @@ footer {
         left: 0;
         right: 0;
         margin: auto;
+        background-color: var(--color-bg);
+        border-radius: 1rem;
+        padding: 1rem;
+        box-sizing: border-box;
     }
 
     .side-by-side-renders img:nth-child(2) {

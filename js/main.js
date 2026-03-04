@@ -22,9 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Remove from DOM after fade completes (1.2s in CSS)
                 setTimeout(() => {
                     splashScreen.remove();
-                }, 1200);
-            }, 600);
-        }, 1500);
+                }, 1000);
+            }, 400);
+        }, 900);
     }
 
     // --- Navigation Scroll Effect ---

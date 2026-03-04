@@ -724,6 +724,24 @@ nav.scrolled {
     color: var(--color-text-main);
 }
 
+/* Full Bleed Transition Image */
+.full-bleed-image {
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    background-color: var(--color-bg);
+}
+
+.full-bleed-image img {
+    width: 100%;
+    height: auto;
+    max-height: 80vh;
+    object-fit: cover;
+}
+
 /* Contact Section */
 .contact-grid {
     display: grid;

@@ -1000,6 +1000,10 @@ footer {
         padding: 0;
     }
 
+    .scroll-jack-track {
+        height: 120vh;
+    }
+
     .model-steps {
         grid-template-columns: 1fr;
     }

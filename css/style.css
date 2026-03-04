@@ -1007,9 +1007,17 @@ footer {
         height: 120vh;
     }
 
+    .hero-image-wrapper {
+        height: 100vh;
+    }
+
     .hero-single-img {
+        width: 100vw;
+        height: 100vh;
+        max-width: 100vw;
         max-height: 100vh;
         object-fit: cover;
+        object-position: center;
     }
 
     .model-steps {

@@ -973,7 +973,24 @@ footer {
 
 @media (max-width: 768px) {
     :root {
-        --spacing-section: 10vh;
+        --spacing-section: 3vh;
+    }
+
+    .section-platform {
+        padding: 6vh 0;
+    }
+
+    .section-model {
+        padding: 6vh 0;
+    }
+
+    .section-contact {
+        padding: 6vh 0;
+    }
+
+    .full-bleed-image {
+        padding: 0;
+        margin: 0;
     }
 
     .model-steps {

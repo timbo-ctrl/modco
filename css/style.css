@@ -1007,6 +1007,11 @@ footer {
         height: 120vh;
     }
 
+    .hero-single-img {
+        max-height: 100vh;
+        object-fit: cover;
+    }
+
     .model-steps {
         grid-template-columns: 1fr;
     }

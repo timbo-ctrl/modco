@@ -393,7 +393,6 @@ nav.scrolled {
     max-width: 100%;
     max-height: 90vh;
     object-fit: contain;
-    mix-blend-mode: darken;
 }
 
 /* Supplemental Photos */
@@ -869,10 +868,10 @@ footer {
 
     .side-by-side-renders img {
         position: absolute;
-        height: 45vh;
-        max-height: 350px;
-        width: 100%;
-        max-width: 350px;
+        height: 50vh;
+        max-height: 400px;
+        width: 90%;
+        max-width: 400px;
         object-fit: contain;
         left: 0;
         right: 0;
@@ -890,6 +889,16 @@ footer {
 
     .side-by-side-renders img:nth-child(3) {
         z-index: 3;
+    }
+
+    /* Override center-large to match side images on mobile */
+    .side-by-side-renders img.center-large {
+        height: 50vh;
+        max-height: 400px;
+        width: 90%;
+        max-width: 400px;
+        flex: 1;
+        transform: translateY(0);
     }
 
     .product-content {

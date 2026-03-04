@@ -160,9 +160,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (isMobile) {
-            // Mobile: direct scroll mapping — no lerp, no fighting touch physics
+            // Mobile: rAF-throttled scroll mapping for smooth 60fps updates
+            let mobileRafId = null;
             window.addEventListener('scroll', () => {
-                applyMobile(getProgress());
+                if (mobileRafId) return; // skip if frame already queued
+                mobileRafId = requestAnimationFrame(() => {
+                    applyMobile(getProgress());
+                    mobileRafId = null;
+                });
             }, { passive: true });
         } else {
             // Desktop: lerp animation loop for buttery mouse-wheel smoothness

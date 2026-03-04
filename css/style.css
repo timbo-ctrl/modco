@@ -458,20 +458,21 @@ nav.scrolled {
     font-weight: 500;
 }
 
-.scroll-arrow {
-    font-size: 1.5rem;
-    color: var(--color-text-muted);
-    animation: arrowBounce 2s infinite ease-in-out;
+.scroll-line {
+    width: 1px;
+    height: 24px;
+    background-color: var(--color-text-muted);
+    animation: lineDrift 3s infinite ease-in-out;
 }
 
-@keyframes arrowBounce {
-    0%, 100% {
+@keyframes lineDrift {
+    0% {
         transform: translateY(0);
-        opacity: 1;
+        opacity: 0.8;
     }
-    50% {
-        transform: translateY(8px);
-        opacity: 0.4;
+    100% {
+        transform: translateY(4px);
+        opacity: 0.3;
     }
 }
 

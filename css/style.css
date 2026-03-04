@@ -430,6 +430,63 @@ nav.scrolled {
     text-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8);
 }
 
+/* Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 10;
+    opacity: 0.6;
+    transition: opacity var(--transition-fast);
+}
+
+.scroll-indicator:hover {
+    opacity: 1;
+}
+
+.scroll-text {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.scroll-icon {
+    width: 24px;
+    height: 36px;
+    border: 2px solid var(--color-text-muted);
+    border-radius: 12px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding-top: 6px;
+}
+
+.scroll-dot {
+    width: 4px;
+    height: 8px;
+    background-color: var(--color-text-muted);
+    border-radius: 2px;
+    animation: scrollBounce 2s infinite ease-in-out;
+}
+
+@keyframes scrollBounce {
+    0%, 100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(12px);
+        opacity: 0.3;
+    }
+}
+
 /* Platform Section */
 .section-platform {
     padding: 15vh 0;

@@ -126,13 +126,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (leftEl) {
                 leftEl.style.opacity = sideP;
                 leftEl.style.flex = sideP;
-                leftEl.style.maxWidth = (sideP * 33) + '%';
+                leftEl.style.maxWidth = window.innerWidth <= 768 ? (sideP * 100) + '%' : (sideP * 33) + '%';
                 leftEl.style.transform = `translateX(${(1 - sideP) * -50}px)`;
             }
             if (rightEl) {
                 rightEl.style.opacity = sideP;
                 rightEl.style.flex = sideP;
-                rightEl.style.maxWidth = (sideP * 33) + '%';
+                rightEl.style.maxWidth = window.innerWidth <= 768 ? (sideP * 100) + '%' : (sideP * 33) + '%';
                 rightEl.style.transform = `translateX(${(1 - sideP) * 50}px)`;
             }
             if (contentEl) {

@@ -874,11 +874,11 @@ footer {
         width: 100%;
         max-height: none;
         max-width: none;
-        object-fit: contain;
+        object-fit: cover;
         margin: 0;
         background-color: var(--color-bg);
         border-radius: 0;
-        padding: 2rem;
+        padding: 0;
         box-sizing: border-box;
     }
 

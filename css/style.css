@@ -475,7 +475,7 @@ nav.scrolled {
 }
 
 .platform-features p::before {
-    content: "—";
+    content: "•";
     position: absolute;
     left: 0;
     color: var(--color-text-main);
@@ -598,7 +598,7 @@ nav.scrolled {
     border-radius: 2rem;
     max-width: 800px;
     width: 90%;
-    text-align: center;
+    text-align: left;
     margin-top: -10vh;
     /* Pull content up over the image like an Apple layout */
     z-index: 10;
@@ -630,7 +630,7 @@ nav.scrolled {
     font-size: 1.125rem;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 0.5rem;
 }
 
@@ -644,15 +644,15 @@ nav.scrolled {
 }
 
 /* Specific Product Highlights */
-#genius .feature-list li::before {
+#genius-section .feature-list li::before {
     background-color: var(--color-text-main);
 }
 
-#switch .feature-list li::before {
+#switch-section .feature-list li::before {
     background-color: var(--color-accent-teal);
 }
 
-#quattro .feature-list li::before {
+#quattro-section .feature-list li::before {
     background-color: var(--color-accent-orange);
 }
 

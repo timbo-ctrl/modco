@@ -2,11 +2,12 @@
 
 /* Base Variables */
 :root {
-    --color-bg: #0A0A0A;
-    --color-text-main: #FFFFFF;
-    --color-text-muted: #A0A0A0;
-    --color-surface: #1A1A1A;
-    --color-border: #333333;
+    color-scheme: light;
+    --color-bg: #FFFFFF;
+    --color-text-main: #1D1D1F;
+    --color-text-muted: #86868B;
+    --color-surface: #F5F5F7;
+    --color-border: #E5E5EA;
     --color-accent-teal: #0071E3;
     /* Changed to Apple blue */
     --color-accent-orange: #FF9500;
@@ -373,7 +374,7 @@ nav.scrolled {
     position: relative;
     padding: 0;
     display: block;
-    background: radial-gradient(circle at center, rgba(30, 30, 30, 0.05) 0%, var(--color-bg) 70%);
+    background: var(--color-bg);
 }
 
 .hero-image-wrapper {
@@ -393,8 +394,6 @@ nav.scrolled {
     max-height: 90vh;
     object-fit: contain;
     mix-blend-mode: darken;
-    -webkit-mask-image: radial-gradient(ellipse 80% 70% at center, black 50%, transparent 100%);
-    mask-image: radial-gradient(ellipse 80% 70% at center, black 50%, transparent 100%);
 }
 
 /* Supplemental Photos */
@@ -905,13 +904,4 @@ footer {
         gap: 2rem;
         text-align: center;
     }
-}
-
-/* Base Dark Mode Overrides */
-img[src*="modco_logo_black"] {
-    filter: invert(1);
-}
-
-.hero-content h1 {
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
 }
